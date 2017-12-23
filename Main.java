@@ -1,19 +1,35 @@
-import java.util.ArrayList;
-import java.util.Map;
 
-import static java.util.stream.Collectors.toMap;
 
-/**
- * Created by 11007122 on 18.12.2017.
- */
 public class Main {
-
     public static void main(String[] args) {
-        List<Person> someCollection = new ArrayList<>();
+        Runnable[] tasks = new Runnable[] {
+                new Task(0),
+                new Task(1),
+                new Task(2),
+                new Task(3),
+                new Task(4),
+                new Task(5),
+                new Task(6),
+                new Task(7),
+                new Task(8),
+                new Task(9)
+        };
 
-        Map m = Streams.of(someCollection)
-                .filter(p -> p.getAge() > 20)
-                .transform( p -> new Person(p.geAge() + 30)))
-                .toMap(p -> p.geName(), p -> p);
+        Runnable callback = () -> System.err.println("\nCallback run now!\n");
+
+        ExecutionManagerImpl executionManager = new ExecutionManagerImpl();
+        Context context = executionManager.execute(callback, tasks);
+
+        System.err.println("context.isFinished(): " + context.isFinished());
+        System.err.println("context.getCompletedTaskCount(): " + context.getCompletedTaskCount());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.err.println("context.isFinished(): " + context.isFinished());
+        System.err.println("context.getCompletedTaskCount(): " + context.getCompletedTaskCount());
     }
 }
