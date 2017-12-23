@@ -1,10 +1,19 @@
+import java.util.ArrayList;
+import java.util.Map;
+
+import static java.util.stream.Collectors.toMap;
+
 /**
- * Created by user on 10.11.2017.
+ * Created by 11007122 on 18.12.2017.
  */
 public class Main {
-    public static void main(String[] args) throws ClassNotFoundException {
-        SimpleClassLoader simpleClassLoader = new SimpleClassLoader("C:/Users/Дмитрий/Music/ClassLoader2/out/production/ClassLoader2");
-        simpleClassLoader.findClass("ru.sbt.Person");
-        simpleClassLoader.findClass("Lesson");
+
+    public static void main(String[] args) {
+        List<Person> someCollection = new ArrayList<>();
+
+        Map m = Streams.of(someCollection)
+                .filter(p -> p.getAge() > 20)
+                .transform( p -> new Person(p.geAge() + 30)))
+                .toMap(p -> p.geName(), p -> p);
     }
 }
